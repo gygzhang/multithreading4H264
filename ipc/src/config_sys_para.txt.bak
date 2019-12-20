@@ -1,0 +1,46 @@
+[para_version]                                	
+
+  app_version = "V1.0.0"    					 
+  
+  app_time = "2007-10-17"
+  
+[para_login]  
+
+  username = "admin"
+  password = "123456"
+
+[General_Setting]
+
+  snmp_port = 515
+  
+  nouse_queue = 1
+  
+  running_mode = 0
+  
+  data_block = 0
+  
+  use_rule = 0
+  
+  snmpport = 515
+  
+[Network_setting]
+
+  ip_inner = "192.168.0.42"
+  
+[HeartBeat_Setting]
+
+  rt_ip = "1.1.0.1"
+  
+  rt_port=5000
+  port = 4000
+  
+[rtv]
+	solution_x = 320
+	solution_y = 240
+	
+  
+
+
+  
+
+ 
