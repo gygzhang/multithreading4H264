@@ -1,0 +1,2 @@
+extBB.o: src/extBB.c inc/extBB.h inc/list.h inc/common.h inc/misc.h \
+ inc/common.h
