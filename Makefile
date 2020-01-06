@@ -65,3 +65,4 @@ cs:
 .PHONY: clean
 clean:
 	-rm -f $(OBJDIR)/*.o $(EXEDIR)/$(EXE)
+	-rm -rf *.mp4 *.h264
