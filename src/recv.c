@@ -8,39 +8,44 @@
 #include <unistd.h>
 #include <errno.h>
 #include <arpa/inet.h>
- 
+
 typedef struct fram{
     int len;
     char *data;
-    
+
 }fram;
 
 typedef struct frame_list{
     fram fram;
-    
+
 }frame_list;
 
 #define MAX_SIZE 99999
 
-int main()
-{
+int recv_simple(){
     int CreateSocket = 0,n = 0;
     char dataReceived[1024*25];
     struct sockaddr_in ipOfServer;
- 
+    fd_set  master_set, working_set;
+
     FILE *fh264 = fopen("./BB.sck.h264.mp4","wb");
     memset(dataReceived, '0' ,sizeof(dataReceived));
- 
+
     if((CreateSocket = socket(AF_INET, SOCK_STREAM, 0))< 0)
     {
         printf("Socket not created \n");
         return 1;
     }
- 
+
+    /*************************************************************/
+    /* Allow socket descriptor to be reuseable                   */
+    /*************************************************************/
+
+
     ipOfServer.sin_family = AF_INET; //ipv4
     ipOfServer.sin_port = htons(2020);
     ipOfServer.sin_addr.s_addr = inet_addr("127.0.0.1");
- 
+
     if(connect(CreateSocket, (struct sockaddr *)&ipOfServer, sizeof(ipOfServer))<0)
     {
         printf("Connection failed due to port and ip problems\n");
@@ -60,13 +65,18 @@ int main()
         //     printf("\nStandard output error");
         // }      
     }
-    free(data);
+    //free(data);
 
- 
+
     if( n < 0)
     {
         printf("Standard input error \n");
     }
- 
+}
+
+
+int main()
+{
+    recv_simple();
     return 0;
 }

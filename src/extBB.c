@@ -331,13 +331,13 @@ void thread_init(){
 void print_list(){
     // 下面把这个链表中各个节点的值打印出来
     printf("\n");
-    printf("   data       len\n");
+    printf("   addres    len\n");
 
     list_for_each(pos, &frame_head)
     {
         // list_entry来取得pos所在的结构的指针(go back)
         tmp_list = list_entry(pos, struct frame_list, list);
-        printf("%d,  %d \n", tmp_list->fram.data, tmp_list->fram.len);
+        printf("%p,  %d \n", tmp_list->fram.data, tmp_list->fram.len);
         //fwrite((void*)tmp_list->fram.data,tmp_list->fram.len,1,fh264);
     }
     printf("\n");
@@ -440,6 +440,27 @@ void multiprocesses(){
     }
 }
 
+void start_recv_process(){
+    char * recv_process_args[] = { "./recv_process" ,  NULL};
+    printf( "The process identifier (pid) of the parent process is %d\n", (int)getpid() );
+    int pid = fork();
+
+    if(pid<0){
+        perror("fork error!\n");
+        exit(0);
+    }
+    
+    if ( pid == 0 ) {
+        execv(recv_process_args[0],recv_process_args);
+        printf("never arrive here!\n\n");
+    } else {
+        //waitpid(-1,0,WNOHANG);
+        printf("pararent exit...\n\n");
+    }
+}
+
+
+
 int main(int argc, char *argv[]){
 
     frame_list *frame_tmp;
@@ -453,7 +474,7 @@ int main(int argc, char *argv[]){
     INIT_LIST_HEAD(&frame_head);   //初始化链表头
     signal(SIGINT, signal_handler);  //注册信号处理
 
-    
+    start_recv_process();
 
     tcp_ready();    
 
